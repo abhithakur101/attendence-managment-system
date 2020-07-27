@@ -148,6 +148,11 @@ public class AttendanceRequset {
 		this.updateDate = updateDate;
 	}
 	
-	
+	public boolean checkNull() throws IllegalAccessException {
+	    for (java.lang.reflect.Field f : getClass().getDeclaredFields())
+	        if (f.get(this) != null)
+	            return false;
+	    return true;            
+	}
 	
 }

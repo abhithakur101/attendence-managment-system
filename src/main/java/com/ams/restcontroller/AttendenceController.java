@@ -13,29 +13,25 @@ import com.sun.istack.NotNull;
 @RestController
 @RequestMapping("/attendence")
 public class AttendenceController {
-	
+
 	@Autowired
 	AttendenceServiceImpl service;
-	
-	
+
 	@PostMapping("/submit")
-	public String submitAttendence(@NotNull@RequestBody AttendanceRequset attendanceRequset) {
-		System.out.println("innnnn----------------------");
+	public String submitAttendence(@NotNull @RequestBody AttendanceRequset attendanceRequset) {
+		String response = null;
 		try {
-			if(null==attendanceRequset){
-				System.out.println();
-			}
-			if(null != attendanceRequset) {
-			return service.submitAttendence(attendanceRequset);
-			}else {
+			if (!attendanceRequset.checkNull()) {
+				response = service.submitAttendence(attendanceRequset);
+
+			} else {
 				throw new Exception();
 			}
 		} catch (Exception e) {
 			System.out.println("tests");
-			
+
 		}
-		return service.submitAttendence(attendanceRequset);
-		
+		return response;
 	}
 
 	public void attendenceCorrection() {
