@@ -2,10 +2,9 @@ package com.ams.serviceimpl;
 
 import java.util.Calendar;
 
-import javax.persistence.EntityManager;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.ams.modal.Attendance;
 import com.ams.modal.Employee;
@@ -13,10 +12,9 @@ import com.ams.repository.AttendanceRepo;
 import com.ams.repository.EmployeeRepo;
 import com.ams.request.AttendanceRequset;
 import com.ams.service.AttendenceService;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 /**
- * Service class for Attendance managment
+ * Service class for Attendance management
  * 
  * 
  * @author ABHISHEK
