@@ -26,6 +26,7 @@ public class AttendenceServiceImpl implements AttendenceService {
 	Calendar calendar = Calendar.getInstance();
 	public String submitAttendence(AttendanceRequset attendanceRequset) {
 		Attendance attendance  = new Attendance();
+		attendance.setEmpId(attendanceRequset.getEmpId());
 		attendance.setDate(calendar.getTime());
 		attendance.setInTime(attendanceRequset.getInTime());
 		attendance.setOutTime(attendanceRequset.getOutTime());
