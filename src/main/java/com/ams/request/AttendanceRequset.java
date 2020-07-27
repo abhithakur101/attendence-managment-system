@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class AttendanceRequset {
 
-	private Long empId;
+	private String empId;
 
 	private Date date;
 
@@ -61,14 +61,14 @@ public class AttendanceRequset {
 	/**
 	 * @return the empId
 	 */
-	public Long getEmpId() {
+	public String getEmpId() {
 		return empId;
 	}
 
 	/**
 	 * @param empId the empId to set
 	 */
-	public void setEmpId(Long empId) {
+	public void setEmpId(String empId) {
 		this.empId = empId;
 	}
 

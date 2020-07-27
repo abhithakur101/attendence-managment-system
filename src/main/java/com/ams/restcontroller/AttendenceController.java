@@ -1,30 +1,18 @@
 package com.ams.restcontroller;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import javax.servlet.annotation.MultipartConfig;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,6 +21,7 @@ import com.ams.response.AttendaneceResponse;
 import com.ams.response.InTimeResponse;
 import com.ams.response.OutimeResponse;
 import com.ams.serviceimpl.AttendenceServiceImpl;
+import com.ams.util.ImageUtil;
 
 @CrossOrigin("*")
 @RestController
@@ -50,10 +39,10 @@ public class AttendenceController {
 		try {
 			if (!request.checkNull()) {
 				MultipartFile file = request.getMultipartFile();
-				FileOutputStream outputStream = new FileOutputStream("/upload"+File.separator+file.getOriginalFilename());
-				outputStream.write(file.getBytes());
+				ImageUtil.uploadImage(file, request.getEmpId());
 				message = service.submitAttendence(request);
 				response.setMessage(message);
+				response.setStatus(HttpStatus.OK.value());
 			} else {
 				throw new Exception();
 			}
@@ -88,17 +77,15 @@ public class AttendenceController {
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 
-	private String getInTimeString() {
-		ResponseEntity<InTimeResponse> inTime = getInTime();
-		InTimeResponse body = inTime.getBody();
-		return body.getIntime();
-	}
-
-	private String getOutTimeString() {
-		ResponseEntity<OutimeResponse> outTime = getOutTime();
-		OutimeResponse body = outTime.getBody();
-		return body.getOutTime();
-	}
+	/*
+	 * private String getInTimeString() { ResponseEntity<InTimeResponse> inTime =
+	 * getInTime(); InTimeResponse body = inTime.getBody(); return body.getIntime();
+	 * }
+	 * 
+	 * private String getOutTimeString() { ResponseEntity<OutimeResponse> outTime =
+	 * getOutTime(); OutimeResponse body = outTime.getBody(); return
+	 * body.getOutTime(); }
+	 */
 
 	public void updateAttendence() {
 	}
