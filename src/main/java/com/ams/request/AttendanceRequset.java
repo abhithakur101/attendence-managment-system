@@ -2,6 +2,8 @@ package com.ams.request;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class AttendanceRequset {
 
 	private Long empId;
@@ -21,6 +23,40 @@ public class AttendanceRequset {
 	private String approvedBy;
 
 	private Date updateDate;
+	
+	private MultipartFile multipartFile;
+	
+	private String empMobile;
+	
+	
+
+	/**
+	 * @return the empMobile
+	 */
+	public String getEmpMobile() {
+		return empMobile;
+	}
+
+	/**
+	 * @param empMobile the empMobile to set
+	 */
+	public void setEmpMobile(String empMobile) {
+		this.empMobile = empMobile;
+	}
+
+	/**
+	 * @return the multipartFile
+	 */
+	public MultipartFile getMultipartFile() {
+		return multipartFile;
+	}
+
+	/**
+	 * @param multipartFile the multipartFile to set
+	 */
+	public void setMultipartFile(MultipartFile multipartFile) {
+		this.multipartFile = multipartFile;
+	}
 
 	/**
 	 * @return the empId

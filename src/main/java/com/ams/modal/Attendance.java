@@ -24,7 +24,7 @@ public class Attendance {
 	private Long Id;
 
 	@Column(name = "EMP_ID")
-	private Long empId;
+	private String empId;
 
 	@Column(name = "STATUS")
 	private String status;
@@ -45,13 +45,16 @@ public class Attendance {
 	private Double longitude;
 
 	@Column(name = "MANGR_ID")
-	private Long managerId;
+	private String managerId;
 
 	@Column(name = "APPROVED_BY")
 	private String approvedBy;
 
 	@Column(name = "UPDATE_DATE")
 	private Date updateDate;
+	
+	@Column(name="EMP_MOBILE")
+	private String empMobile;
 
 	/**
 	 * @return the id
@@ -63,14 +66,14 @@ public class Attendance {
 	/**
 	 * @return the empId
 	 */
-	public Long getEmpId() {
+	public String getEmpId() {
 		return empId;
 	}
 
 	/**
 	 * @param empId the empId to set
 	 */
-	public void setEmpId(Long empId) {
+	public void setEmpId(String empId) {
 		this.empId = empId;
 	}
 
@@ -161,14 +164,14 @@ public class Attendance {
 	/**
 	 * @return the managerId
 	 */
-	public Long getManagerId() {
+	public String getManagerId() {
 		return managerId;
 	}
 
 	/**
 	 * @param managerId the managerId to set
 	 */
-	public void setManagerId(Long managerId) {
+	public void setManagerId(String managerId) {
 		this.managerId = managerId;
 	}
 
@@ -198,6 +201,20 @@ public class Attendance {
 	 */
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+
+	/**
+	 * @return the empMobile
+	 */
+	public String getEmpMobile() {
+		return empMobile;
+	}
+
+	/**
+	 * @param empMobile the empMobile to set
+	 */
+	public void setEmpMobile(String empMobile) {
+		this.empMobile = empMobile;
 	}
 
 }
