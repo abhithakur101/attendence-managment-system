@@ -1,18 +1,18 @@
 package com.ams.request;
 
 public class EmpRequest {
-    public String mobile;
+    public String empMobile;
 
 
     public EmpRequest(String mobile) {
-        this.mobile = mobile;
+        this.empMobile = mobile;
     }
 
     public String getMobile() {
-        return mobile;
+        return empMobile;
     }
 
     public void setMobile(String mobile) {
-        this.mobile = mobile;
+        this.empMobile = mobile;
     }
 }

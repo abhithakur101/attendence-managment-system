@@ -11,9 +11,8 @@ import java.util.Arrays;
 public class AddEmpRequest {
         private int id;
     
-        private String empId;
-  
-        private String empName;
+          private String empId;
+          private String empName;
           private String empPassword;
           private String empEmail;
           private String empMobile;

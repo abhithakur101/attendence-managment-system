@@ -17,7 +17,6 @@ public class MyUserDetailsServiceImpl implements MyUserDetailsService {
 	 @Autowired
 	    UserRepository userRepository;
 
-
 	    @Override
 	    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
 
