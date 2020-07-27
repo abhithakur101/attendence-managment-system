@@ -1,5 +1,7 @@
 package com.ams.response;
 
+import com.ams.modal.Employee;
+
 public class EmployeeResponse {
     private int id;
     private String empId;
