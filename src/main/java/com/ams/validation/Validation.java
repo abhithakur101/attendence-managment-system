@@ -1,9 +1,11 @@
 package com.ams.validation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+@CrossOrigin("*")
 public class Validation {
 
     Logger logger= LoggerFactory.getLogger(Validation.class);

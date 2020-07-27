@@ -9,6 +9,7 @@ import com.ams.modal.Attendance;
 import com.ams.repository.AttendanceRepo;
 import com.ams.request.AttendanceRequset;
 import com.ams.service.AttendenceService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 /**
  * Service class for Attendance managment
@@ -16,7 +17,9 @@ import com.ams.service.AttendenceService;
  * 
  * @author ABHISHEK
  *
+ *
  */
+@CrossOrigin("*")
 @Service
 public class AttendenceServiceImpl implements AttendenceService {
 	

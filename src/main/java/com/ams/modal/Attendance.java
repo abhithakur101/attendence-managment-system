@@ -1,5 +1,7 @@
 package com.ams.modal;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -15,6 +17,7 @@ import javax.persistence.Table;
  * @author ABHISHEK
  *
  */
+@CrossOrigin("*")
 @Entity
 @Table(name = "ATTENDANCE")
 public class Attendance {

@@ -1,8 +1,10 @@
 package com.ams.request;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import java.io.Serializable;
 
-
+@CrossOrigin("*")
 public class AuthenticationRequest implements Serializable {
 
 

@@ -1,7 +1,10 @@
 package com.ams.request;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import java.util.Date;
 
+@CrossOrigin("*")
 public class AttendanceRequset {
 
 	private Long empId;

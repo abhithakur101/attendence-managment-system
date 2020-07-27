@@ -3,9 +3,11 @@ package com.ams.service;
 import com.ams.enums.Shift;
 import com.ams.modal.Employee;
 import org.springframework.data.repository.query.Param;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 
+@CrossOrigin("*")
 public interface EmployeeService {
 
         public Employee findByEmpMobile(String EmpMobile);

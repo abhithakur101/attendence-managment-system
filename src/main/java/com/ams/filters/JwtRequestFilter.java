@@ -14,11 +14,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.ams.service.MyUserDetailsService;
 import com.ams.util.JwtUtil;
 
+@CrossOrigin("*")
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 

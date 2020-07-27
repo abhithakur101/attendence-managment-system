@@ -2,12 +2,14 @@ package com.ams.request;
 
 import com.ams.enums.Role;
 import com.ams.enums.Shift;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 
 import java.util.Arrays;
 
+@CrossOrigin("*")
 public class AddEmpRequest {
         private int id;
     
