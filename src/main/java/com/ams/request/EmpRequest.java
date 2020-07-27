@@ -1,18 +1,21 @@
 package com.ams.request;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
+@CrossOrigin("*")
 public class EmpRequest {
-    public String mobile;
+    public String empMobile;
 
 
     public EmpRequest(String mobile) {
-        this.mobile = mobile;
+        this.empMobile = mobile;
     }
 
     public String getMobile() {
-        return mobile;
+        return empMobile;
     }
 
     public void setMobile(String mobile) {
-        this.mobile = mobile;
+        this.empMobile = mobile;
     }
 }

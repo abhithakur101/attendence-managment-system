@@ -15,6 +15,7 @@ import java.util.Date;
 import javax.servlet.annotation.MultipartConfig;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
@@ -33,6 +34,7 @@ import com.ams.response.InTimeResponse;
 import com.ams.response.OutimeResponse;
 import com.ams.serviceimpl.AttendenceServiceImpl;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/attendence")
 public class AttendenceController {

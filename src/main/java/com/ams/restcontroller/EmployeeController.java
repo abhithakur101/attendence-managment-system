@@ -9,7 +9,6 @@ import com.ams.validation.Validation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Date;
@@ -28,7 +27,7 @@ public class EmployeeController {
 
     Validation validation=new Validation();
 
-    @GetMapping("/getemployees")
+    @GetMapping("/getEmployees")
     public ResponseEntity<?> getEmployees(@ModelAttribute EmpRequest empRequest) {
         List<Employee> employees = null;
         Employee employee = employeeService.findByEmpMobile(empRequest.getMobile());
@@ -49,7 +48,7 @@ public class EmployeeController {
         }
     }
 
-    @GetMapping("/getemployee")
+    @GetMapping("/getEmployee")
     public ResponseEntity<?> getEmployee(@ModelAttribute EmpRequest empRequest) {
         Employee employee = employeeService.findByEmpMobile(empRequest.getMobile());
         try {
@@ -179,19 +178,26 @@ public class EmployeeController {
             return  ResponseEntity.ok(new CommanResponse("Invalid User ", false ));
         }
     }
-
+    @PostMapping("/updateEmployee")
     public ResponseEntity<?> UpdateEmployee(@RequestParam String EmpMobile, @ModelAttribute Employee employee) {
         Employee getemployee = employeeService.findByEmpMobile(EmpMobile);
 
+   //     employee.setEmpPic(compressBytes(employee.getEmpPic().getBytes()));
         try {
             if (getemployee.equals(null)) {
                 return ResponseEntity.ok(new CommanResponse("Record Not Found", false));
             } else {
                 if (getemployee.getEmpRole().equals(Role.Admin) || getemployee.getEmpRole().equals(Role.Manager)) {
-                    employeeService.updateEmployee(employee.getEmpName(),
-                            employee.getEmpMobile(), employee.getEmpEmail(), employee.getEmpAddress(),
-                            employee.getEmpPic(), employee.getDesignation(), employee.getEmpPassword(), employee.getOfficeAddress(),
-                            employee.getShift(), employee.getEmpId());
+
+                    employeeService.updateEmpName(employee.getEmpName(),employee.getEmpId());
+                    employeeService.updateEmpEmail(employee.getEmpEmail(),employee.getEmpId());
+                    employeeService.updateEmpMobile(employee.getEmpMobile(),employee.getEmpId());
+                    employeeService.updateEmpDesignation(employee.getDesignation(),employee.getEmpId());
+                    employeeService.updateAddress(employee.getEmpAddress(),employee.getEmpId());
+                    employeeService.updateOfficeAddress(employee.getOfficeAddress(),employee.getEmpId());
+                    employeeService.updateShift(employee.getShift(),employee.getEmpId());
+                    employeeService.updateModifiedBy(getemployee.getEmpName(),employee.getEmpId());
+                    employeeService.updateModifiedDate(new Date().toString(),employee.getEmpId());
 
                     return ResponseEntity.ok(new CommanResponse("User Data", true, employee));
                 } else {

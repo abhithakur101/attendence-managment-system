@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.ams.modal.Attendance;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 /**
  * 
@@ -14,6 +15,7 @@ import com.ams.modal.Attendance;
  * @author ABHISHEK
  *
  */
+@CrossOrigin("*")
 @Repository
 @Transactional
 public interface AttendanceRepo extends JpaRepository<Attendance, Long> {

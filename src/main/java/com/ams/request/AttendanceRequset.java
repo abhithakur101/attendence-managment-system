@@ -1,7 +1,10 @@
 package com.ams.request;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import java.util.Date;
 
+@CrossOrigin("*")
 import org.springframework.web.multipart.MultipartFile;
 
 public class AttendanceRequset {

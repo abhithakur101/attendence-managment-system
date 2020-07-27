@@ -11,12 +11,14 @@ import org.springframework.stereotype.Service;
 import com.ams.modal.Employee;
 import com.ams.repository.UserRepository;
 import com.ams.service.MyUserDetailsService;
+import org.springframework.web.bind.annotation.CrossOrigin;
+
+@CrossOrigin("*")
 @Service
 public class MyUserDetailsServiceImpl implements MyUserDetailsService {
 
 	 @Autowired
 	    UserRepository userRepository;
-
 
 	    @Override
 	    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {

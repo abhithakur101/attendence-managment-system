@@ -1,7 +1,10 @@
 package com.ams.modal;
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import javax.persistence.*;
 import java.util.Date;
 
+@CrossOrigin("*")
 @Entity
 @Table
 public class Login {

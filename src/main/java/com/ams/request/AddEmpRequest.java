@@ -2,18 +2,19 @@ package com.ams.request;
 
 import com.ams.enums.Role;
 import com.ams.enums.Shift;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 
 import java.util.Arrays;
 
+@CrossOrigin("*")
 public class AddEmpRequest {
         private int id;
     
-        private String empId;
-  
-        private String empName;
+          private String empId;
+          private String empName;
           private String empPassword;
           private String empEmail;
           private String empMobile;

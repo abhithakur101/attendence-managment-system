@@ -6,11 +6,12 @@ import com.ams.modal.Employee;
 import com.ams.repository.EmployeeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.ams.service.EmployeeService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 
+@CrossOrigin("*")
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
@@ -49,6 +50,37 @@ public class EmployeeServiceImpl implements EmployeeService {
                  OfficeAddress,  shift,  empId);
        return employeeRepo.findByEmpMobile(empMobile);
 
+    }
+
+    public void updateEmpName(String empName,String empId){
+        employeeRepo.updateEmpName(empName,empId);
+    }
+    public void updateEmpEmail(String empEmail,String empId){
+        employeeRepo.updateEmpEmail(empEmail, empId);
+    }
+    public void updateEmpMobile(String empMobile,String empId ){
+        employeeRepo.updateEmpMobile(empMobile, empId);
+    }
+    public void updateAddress(String empAddress,String empId){
+        employeeRepo.updateAddress(empAddress, empId);
+    }
+    public void updateEmpDesignation(String Designation,String empId){
+        employeeRepo.updateEmpDesignation(Designation, empId);
+    }
+    public void updateEmpPassword(String empPassword,String empId){
+        employeeRepo.updateEmpPassword(empPassword, empId);
+    }
+    public void updateOfficeAddress(String OfficeAddress,String empId){
+        employeeRepo.updateOfficeAddress(OfficeAddress, empId);
+    }
+    public void updateShift(Shift shift,String empId){
+        employeeRepo.updateShift(shift, empId);
+    }
+    public void updateModifiedDate(String Date,String empId){
+            employeeRepo.updateModifiedDate(Date, empId);
+}
+    public void updateModifiedBy(String ModifiedBy,String empId){
+        employeeRepo.updateModifiedBy(ModifiedBy, empId);
     }
     public void addEmployee(Employee employee){
         employeeRepo.save(employee);

@@ -2,10 +2,11 @@ package com.ams.modal;
 
 import com.ams.enums.Role;
 import com.ams.enums.Shift;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.persistence.*;
 import java.util.Arrays;
-
+@CrossOrigin("*")
 @Entity
 @Table(name = "EMPLOYEE")
 public class Employee {
