@@ -6,9 +6,7 @@ import java.io.Serializable;
 
 public class AuthenticationResponse implements Serializable {
 
-	private static final long serialVersionUID = -2258400154026835629L;
-
-	private final Employee employee;
+    private final Employee employee;
 
     private final String jwt;
 
