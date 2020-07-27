@@ -43,6 +43,7 @@ public class EmployeeController {
                 return ResponseEntity.ok(new CommanResponse("UnAutorized Request", false, employees));
             }
         } catch (Exception ex) {
+        	System.out.println(ex.getMessage());
             return ResponseEntity.ok(new CommanResponse(ex.getMessage(), false, employees));
         }
     }

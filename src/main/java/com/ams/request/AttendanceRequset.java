@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import java.util.Date;
 
 @CrossOrigin("*")
+import org.springframework.web.multipart.MultipartFile;
+
 public class AttendanceRequset {
 
 	private Long empId;
@@ -24,6 +26,40 @@ public class AttendanceRequset {
 	private String approvedBy;
 
 	private Date updateDate;
+	
+	private MultipartFile multipartFile;
+	
+	private String empMobile;
+	
+	
+
+	/**
+	 * @return the empMobile
+	 */
+	public String getEmpMobile() {
+		return empMobile;
+	}
+
+	/**
+	 * @param empMobile the empMobile to set
+	 */
+	public void setEmpMobile(String empMobile) {
+		this.empMobile = empMobile;
+	}
+
+	/**
+	 * @return the multipartFile
+	 */
+	public MultipartFile getMultipartFile() {
+		return multipartFile;
+	}
+
+	/**
+	 * @param multipartFile the multipartFile to set
+	 */
+	public void setMultipartFile(MultipartFile multipartFile) {
+		this.multipartFile = multipartFile;
+	}
 
 	/**
 	 * @return the empId
@@ -151,6 +187,11 @@ public class AttendanceRequset {
 		this.updateDate = updateDate;
 	}
 	
-	
+	public boolean checkNull() throws IllegalAccessException {
+	    for (java.lang.reflect.Field f : getClass().getDeclaredFields())
+	        if (f.get(this) != null)
+	            return false;
+	    return true;            
+	}
 	
 }
