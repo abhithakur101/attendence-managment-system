@@ -16,12 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ams.repository.AttLogRepo;
 import com.ams.request.AttendanceRequset;
 import com.ams.response.AttendaneceResponse;
 import com.ams.response.InTimeResponse;
 import com.ams.response.OutimeResponse;
 import com.ams.serviceimpl.AttendenceServiceImpl;
-import com.ams.util.ImageUtil;
+import com.ams.util.CommonUtil;
 
 @CrossOrigin("*")
 @RestController
@@ -38,7 +39,7 @@ public class AttendenceController {
 		try {
 			if (!request.checkNull()) {
 				MultipartFile file = request.getMultipartFile();
-				ImageUtil.uploadImage(file, request.getEmpId());
+				CommonUtil.uploadImage(file, request.getEmpId());
 				message = service.submitAttendence(request);
 				response.setMessage(message);
 				response.setStatus(HttpStatus.OK.value());
@@ -87,6 +88,6 @@ public class AttendenceController {
 	 */
 
 	public void updateAttendence() {
-			}
+	}
 
 }

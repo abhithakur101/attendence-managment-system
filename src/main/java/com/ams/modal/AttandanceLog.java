@@ -1,9 +1,5 @@
 package com.ams.modal;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-
-import com.ams.enums.AttendanceStatus;
-
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -13,17 +9,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
 
-/**
- * Entity Class for Attendance Table
- * 
- * 
- * @author ABHISHEK
- *
- */
-@CrossOrigin("*")
+import com.ams.enums.AttendanceStatus;
+
+@Table(name="ATT_LOG")
 @Entity
-@Table(name = "ATTENDANCE")
-public class Attendance {
+public class AttandanceLog {
+
 
 	@javax.persistence.Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -64,6 +55,22 @@ public class Attendance {
 	
 	@Column(name="LOC_STATUS")
 	private Boolean locationStatus;
+	
+	
+
+	/**
+	 * @return the locationStatus
+	 */
+	public Boolean getLocationStatus() {
+		return locationStatus;
+	}
+
+	/**
+	 * @param locationStatus the locationStatus to set
+	 */
+	public void setLocationStatus(Boolean locationStatus) {
+		this.locationStatus = locationStatus;
+	}
 
 	/**
 	 * @return the id
@@ -226,19 +233,5 @@ public class Attendance {
 		this.empMobile = empMobile;
 	}
 
-	/**
-	 * @return the locationStatus
-	 */
-	public Boolean getLocationStatus() {
-		return locationStatus;
-	}
 
-	/**
-	 * @param locationStatus the locationStatus to set
-	 */
-	public void setLocationStatus(Boolean locationStatus) {
-		this.locationStatus = locationStatus;
-	}
-
-	
 }
