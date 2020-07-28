@@ -1,10 +1,5 @@
 package com.ams.modal;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-
-import com.ams.enums.AttendanceStatus;
-
-import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -12,6 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+
+import com.ams.enums.AttendanceStatus;
 
 /**
  * Entity Class for Attendance Table
@@ -36,7 +35,7 @@ public class Attendance {
 	private AttendanceStatus status;
 
 	@Column(name = "DATE")
-	private LocalDate date;
+	private String date;
 
 	@Column(name = "IN_TIME")
 	private Date inTime;
@@ -64,6 +63,10 @@ public class Attendance {
 	
 	@Column(name="LOC_STATUS")
 	private Boolean locationStatus;
+	
+	@Column(name="CORRECTION_FLAG")
+	private Boolean coorectionFlag;
+	
 
 	/**
 	 * @return the id
@@ -103,14 +106,14 @@ public class Attendance {
 	/**
 	 * @return the date
 	 */
-	public LocalDate getDate() {
+	public String getDate() {
 		return date;
 	}
 
 	/**
 	 * @param date the date to set
 	 */
-	public void setDate(LocalDate date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
@@ -238,6 +241,20 @@ public class Attendance {
 	 */
 	public void setLocationStatus(Boolean locationStatus) {
 		this.locationStatus = locationStatus;
+	}
+
+	/**
+	 * @return the coorectionFlag
+	 */
+	public Boolean isCoorectionFlag() {
+		return coorectionFlag;
+	}
+
+	/**
+	 * @param coorectionFlag the coorectionFlag to set
+	 */
+	public void setCoorectionFlag(Boolean coorectionFlag) {
+		this.coorectionFlag = coorectionFlag;
 	}
 
 	

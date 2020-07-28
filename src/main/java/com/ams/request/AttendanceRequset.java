@@ -10,9 +10,9 @@ public class AttendanceRequset {
 
 	private Date date;
 
-	private Date inTime;
+	private String inTime;
 
-	private Date outTime;
+	private String outTime;
 
 	private Double latitude;
 
@@ -89,28 +89,28 @@ public class AttendanceRequset {
 	/**
 	 * @return the inTime
 	 */
-	public Date getInTime() {
+	public String getInTime() {
 		return inTime;
 	}
 
 	/**
 	 * @param inTime the inTime to set
 	 */
-	public void setInTime(Date inTime) {
+	public void setInTime(String inTime) {
 		this.inTime = inTime;
 	}
 
 	/**
 	 * @return the outTime
 	 */
-	public Date getOutTime() {
+	public String getOutTime() {
 		return outTime;
 	}
 
 	/**
 	 * @param outTime the outTime to set
 	 */
-	public void setOutTime(Date outTime) {
+	public void setOutTime(String outTime) {
 		this.outTime = outTime;
 	}
 

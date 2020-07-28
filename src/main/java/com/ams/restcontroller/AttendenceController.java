@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.ams.repository.AttLogRepo;
 import com.ams.request.AttendanceRequset;
+import com.ams.request.CorrectionRequest;
 import com.ams.response.AttendaneceResponse;
 import com.ams.response.InTimeResponse;
 import com.ams.response.OutimeResponse;
@@ -52,7 +54,7 @@ public class AttendenceController {
 			response.setMessage(HttpStatus.BAD_REQUEST.toString());
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 		}
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
+		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 
 	@GetMapping("/intime")
@@ -87,7 +89,62 @@ public class AttendenceController {
 	 * body.getOutTime(); }
 	 */
 
-	public void updateAttendence() {
+	@PostMapping("/updatetimesheet")
+	public ResponseEntity<AttendaneceResponse> updateAttendence(@RequestParam String empId) {
+		
+		AttendaneceResponse response = new AttendaneceResponse();
+		try {
+			if (null!=empId) {
+				service.updateAttendance(empId);
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+			} else {
+				throw new Exception();
+			}
+
+		} catch (Exception e) {
+			response.setStatus(HttpStatus.BAD_REQUEST.value());
+			response.setMessage(HttpStatus.BAD_REQUEST.toString());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+		}
+	
+	}
+
+	@PostMapping("/correction")
+	public ResponseEntity<AttendaneceResponse> applyForCorrection(@RequestBody CorrectionRequest request) {
+		AttendaneceResponse response = new AttendaneceResponse();
+		System.out.println();
+		try {
+			if (!request.checkNull()) {
+				response.setMessage(service.applyForCorrection(request));
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+			} else {
+				throw new Exception();
+			}
+
+		} catch (Exception e) {
+			response.setStatus(HttpStatus.BAD_REQUEST.value());
+			response.setMessage(HttpStatus.BAD_REQUEST.toString());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+		}
+	}
+
+	@GetMapping("/getattendance")
+	public ResponseEntity<AttendaneceResponse> getEmployeeAttendence(@RequestParam String empId,
+			@RequestParam String month) {
+		AttendaneceResponse response = new AttendaneceResponse();
+		try {
+
+			if (null != empId && null != month) {
+				response.setAttendanceList(service.getEmployeeAttendence(empId, month));
+				return ResponseEntity.status(HttpStatus.OK).body(response);
+			} else {
+				throw new Exception();
+			}
+		} catch (Exception e) {
+			response.setStatus(HttpStatus.BAD_REQUEST.value());
+			response.setMessage(HttpStatus.BAD_REQUEST.toString());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+		}
 	}
 
 }

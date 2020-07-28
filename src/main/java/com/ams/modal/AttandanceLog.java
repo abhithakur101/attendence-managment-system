@@ -56,6 +56,9 @@ public class AttandanceLog {
 	@Column(name="LOC_STATUS")
 	private Boolean locationStatus;
 	
+	@Column(name="CORRECTION_FLAG")
+	private boolean coorectionFlag;
+	
 	
 
 	/**
@@ -231,6 +234,20 @@ public class AttandanceLog {
 	 */
 	public void setEmpMobile(String empMobile) {
 		this.empMobile = empMobile;
+	}
+
+	/**
+	 * @return the coorectionFlag
+	 */
+	public boolean isCoorectionFlag() {
+		return coorectionFlag;
+	}
+
+	/**
+	 * @param coorectionFlag the coorectionFlag to set
+	 */
+	public void setCoorectionFlag(boolean coorectionFlag) {
+		this.coorectionFlag = coorectionFlag;
 	}
 
 
