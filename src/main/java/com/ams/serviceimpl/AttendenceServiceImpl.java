@@ -1,9 +1,11 @@
+
 package com.ams.serviceimpl;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -23,7 +25,7 @@ import com.ams.repository.AttLogRepo;
 import com.ams.repository.AttendanceRepo;
 import com.ams.repository.EmployeeRepo;
 import com.ams.request.AttendanceRequset;
-import com.ams.request.CorrectionRequest;
+import com.ams.response.AttendaneceResponse;
 import com.ams.service.AttendenceService;
 import com.ams.util.CommonUtil;
 
@@ -35,7 +37,7 @@ import com.ams.util.CommonUtil;
  *
  *
  */
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 @Service
 public class AttendenceServiceImpl implements AttendenceService {
 
@@ -47,10 +49,13 @@ public class AttendenceServiceImpl implements AttendenceService {
 
 	@Autowired
 	AttLogRepo logRepo;
-
+	
+	List<Attendance> attList =new ArrayList<Attendance>();
+	
 	Calendar calendar = Calendar.getInstance();
 
-	public String submitAttendence(AttendanceRequset attendanceRequset) {
+	public String submitAttendence(AttendanceRequset attendanceRequset,AttendaneceResponse response) {
+		
 		try {
 			String empMobile = attendanceRequset.getEmpMobile();
 			Employee employee = empRepo.findByEmpMobile(empMobile);
@@ -62,11 +67,7 @@ public class AttendenceServiceImpl implements AttendenceService {
 			if (null != attendance) {
 				Boolean locStatus = CommonUtil.checklocation(latitude, longitude);
 				attendance.setUpdateDate(calendar.getTime());
-				if (null != attendanceRequset.getOutTime()) {
-					// TODO PARSING date
-				} else {
 					attendance.setOutTime(new java.util.Date());
-				}
 				int inTime = CommonUtil.compareTimes(shiftTime.getMinOut(), attendance.getInTime());
 				int outime = CommonUtil.compareTimes(shiftTime.getMinOut(), attendance.getOutTime());
 
@@ -75,10 +76,12 @@ public class AttendenceServiceImpl implements AttendenceService {
 				}
 				attendance.setLatitude(attendanceRequset.getLatitude());
 				attendance.setLongitude(attendanceRequset.getLongitude());
-				attendance.setCoorectionFlag(true);
+				attendance.setCoorectionFlag(false);
 				if (locStatus) {
 					attendance.setLocationStatus(locStatus);
-					repo.save(attendance);
+					Attendance attt = repo.save(attendance);
+					attList.add(attt);
+					response.setAttendanceList(attList);
 					logAttendance(attendanceRequset, employee, locStatus);
 				} else {
 					logAttendance(attendanceRequset, employee, locStatus);
@@ -86,6 +89,7 @@ public class AttendenceServiceImpl implements AttendenceService {
 			} else {
 				// Intime Logic
 				Boolean locStatus = CommonUtil.checklocation(latitude, longitude);
+				System.out.println(locStatus);
 				if (locStatus) {
 					attendance = new Attendance();
 					attendance.setManagerId(employee.getManagerId());
@@ -102,7 +106,9 @@ public class AttendenceServiceImpl implements AttendenceService {
 					attendance.setLongitude(attendanceRequset.getLongitude());
 					attendance.setEmpId(employee.getEmpId());
 					attendance.setEmpMobile(employee.getEmpMobile());
-					repo.save(attendance);
+					Attendance attt = repo.save(attendance);
+					attList.add(attt);
+					response.setAttendanceList(attList);
 					logAttendance(attendanceRequset, employee, locStatus);
 
 				} else {
@@ -186,14 +192,14 @@ public class AttendenceServiceImpl implements AttendenceService {
 	 * 
 	 * @param request
 	 */
-	public String applyForCorrection(CorrectionRequest request) {
-		List<Attendance> attendanceList = request.getAttendanceList();
-		for (Attendance attendance : attendanceList) {
-			Long id = attendance.getId();
+	public String applyForCorrection(Long id) {
+		
+			System.out.println(id);
 			Optional<Attendance> findById = repo.findById(id);
 			//attendance flow
 			if(findById.isPresent()) {
 				Attendance att = findById.get();
+				System.out.println("ths is done");
 				att.setUpdateDate(new Date());
 				att.setCoorectionFlag(true);
 				repo.save(att);
@@ -206,7 +212,7 @@ public class AttendenceServiceImpl implements AttendenceService {
 				att.setCoorectionFlag(true);
 				logRepo.save(att);
 			}
-		}
+		
 		return "SUCCESSFULLY APPLIED FOR CORRECTION";
 	}
 
@@ -226,14 +232,16 @@ public class AttendenceServiceImpl implements AttendenceService {
         return attendanceByMonth;
 	}
 
-	public void updateAttendance(@RequestParam String empId) {
-		
+	public String updateAttendance(@RequestParam String empId,AttendaneceResponse response) {
 		List<Attendance> attendanceList = repo.getAttendanceByCorrectionFlag(empId, true);
 		for(Attendance attendance:attendanceList) {
 			attendance.setCoorectionFlag(false);
 			attendance.setStatus(AttendanceStatus.PRESENT);
-			repo.save(attendance);
+			Attendance att = repo.save(attendance);
+			attList.add(att);
+			response.setAttendanceList(attList);
 		}
+		return "SUCCESSFULLY UPDATED";
 	}
 
 	

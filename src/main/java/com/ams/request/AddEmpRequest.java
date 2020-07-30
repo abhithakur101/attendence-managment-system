@@ -22,7 +22,7 @@ public class AddEmpRequest {
           private String OfficeAddress;
           private Role empRole;
           private Shift shift;
-          private String CreatedDate;
+          private String CreatedDate;		
           private String CreatedBy;
           private String ModifiedDate;
           private String ModifiedBy;

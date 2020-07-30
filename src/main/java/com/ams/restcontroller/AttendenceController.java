@@ -12,21 +12,19 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ams.request.AttendanceRequset;
-import com.ams.request.CorrectionRequest;
 import com.ams.response.AttendaneceResponse;
 import com.ams.response.InTimeResponse;
 import com.ams.response.OutimeResponse;
 import com.ams.serviceimpl.AttendenceServiceImpl;
 import com.ams.util.CommonUtil;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/attendence")
 public class AttendenceController {
@@ -42,7 +40,7 @@ public class AttendenceController {
 			if (!request.checkNull()) {
 				MultipartFile file = request.getMultipartFile();
 				CommonUtil.uploadImage(file, request.getEmpId());
-				message = service.submitAttendence(request);
+				message = service.submitAttendence(request,response);
 				response.setMessage(message);
 				response.setStatus(HttpStatus.OK.value());
 			} else {
@@ -91,12 +89,13 @@ public class AttendenceController {
 
 	@PostMapping("/updatetimesheet")
 	public ResponseEntity<AttendaneceResponse> updateAttendence(@RequestParam String empId) {
-		
 		AttendaneceResponse response = new AttendaneceResponse();
 		try {
 			if (null!=empId) {
-				service.updateAttendance(empId);
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+				String message = service.updateAttendance(empId,response);
+				response.setMessage(message);
+				response.setStatus(HttpStatus.OK.value());
+				return ResponseEntity.status(HttpStatus.OK).body(response);
 			} else {
 				throw new Exception();
 			}
@@ -110,17 +109,16 @@ public class AttendenceController {
 	}
 
 	@PostMapping("/correction")
-	public ResponseEntity<AttendaneceResponse> applyForCorrection(@RequestBody CorrectionRequest request) {
+	public ResponseEntity<AttendaneceResponse> applyForCorrection(@RequestParam Long id) {
 		AttendaneceResponse response = new AttendaneceResponse();
-		System.out.println();
 		try {
-			if (!request.checkNull()) {
-				response.setMessage(service.applyForCorrection(request));
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+			if (null!=id) {
+				response.setMessage(service.applyForCorrection(id));
+				response.setStatus(HttpStatus.OK.value());
+				return ResponseEntity.status(HttpStatus.OK).body(response);
 			} else {
 				throw new Exception();
 			}
-
 		} catch (Exception e) {
 			response.setStatus(HttpStatus.BAD_REQUEST.value());
 			response.setMessage(HttpStatus.BAD_REQUEST.toString());
@@ -136,6 +134,8 @@ public class AttendenceController {
 
 			if (null != empId && null != month) {
 				response.setAttendanceList(service.getEmployeeAttendence(empId, month));
+				response.setMessage(HttpStatus.OK.toString());
+				response.setStatus(HttpStatus.OK.value());
 				return ResponseEntity.status(HttpStatus.OK).body(response);
 			} else {
 				throw new Exception();

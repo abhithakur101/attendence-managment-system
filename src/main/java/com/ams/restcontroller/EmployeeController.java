@@ -18,7 +18,7 @@ import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
@@ -117,6 +117,7 @@ public class EmployeeController {
          employee.setCreatedDate((new Date().toString()));
          employee.setCreatedBy(checkUser.getEmpName());
          employee.setModifiedBy(addEmpRequest.getModifiedBy());
+         employee.setEmpRole(addEmpRequest.getEmpRole());
          employee.setShift(addEmpRequest.getShift());
          employee.setModifiedDate(addEmpRequest.getModifiedDate());
         try{

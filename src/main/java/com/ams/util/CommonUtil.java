@@ -33,7 +33,9 @@ public class CommonUtil {
 
 		GlobalPosition userPos = new GlobalPosition(latitude, longitude, 0.0);
 		double distance = geoCalc.calculateGeodeticCurve(reference, userPos, pointA).getEllipsoidalDistance();
+		System.out.println(distance);
 		int flag = Double.compare(distance, 500);
+		System.out.println(flag);
 		if (flag < 0) {
 			return true;
 		} else if (flag > 0) {
