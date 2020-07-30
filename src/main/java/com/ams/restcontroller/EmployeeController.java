@@ -43,7 +43,6 @@ public class EmployeeController {
                 return ResponseEntity.ok(new CommanResponse("UnAutorized Request", false, employees));
             }
         } catch (Exception ex) {
-        	System.out.println(ex.getMessage());
             return ResponseEntity.ok(new CommanResponse(ex.getMessage(), false, employees));
         }
     }
@@ -76,7 +75,6 @@ public class EmployeeController {
             outputStream.close();
         } catch (IOException e) {
         }
-        System.out.println("Compressed Image Byte Size - " + outputStream.toByteArray().length);
         return outputStream.toByteArray();
     }
     // uncompress the image bytes before returning it to the angular application

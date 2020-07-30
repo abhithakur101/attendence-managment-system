@@ -1,14 +1,19 @@
 package com.ams.util;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.function.Function;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-import java.util.*;
-import java.util.function.Function;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 @CrossOrigin("*")
 @Service
@@ -20,8 +25,6 @@ public class JwtUtil {
         try {
             return extractClaim(token, Claims::getSubject);
         } catch (Exception ex) {
-
-            System.out.println("exception : " + ex.getMessage());
             return ex.getMessage();
         }
     }
@@ -53,9 +56,6 @@ public class JwtUtil {
         Calendar cal1 = Calendar.getInstance(Locale.US);
         cal1.setTime(cal.getTime());
         cal1.add(Calendar.HOUR, 10);
-        Calendar cal2 = Calendar.getInstance(Locale.US);
-        System.out.println("cal time" + cal.getTime());
-        System.out.println("cal 2 time " + cal2.getTime());
 
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(cal.getTime())
                 .setExpiration(cal1.getTime())
