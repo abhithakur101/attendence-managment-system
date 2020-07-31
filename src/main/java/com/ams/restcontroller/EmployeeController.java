@@ -11,8 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
@@ -28,29 +27,51 @@ public class EmployeeController {
     Validation validation=new Validation();
 
     @GetMapping("/getEmployees")
-    public ResponseEntity<?> getEmployees(@ModelAttribute EmpRequest empRequest) {
-        List<Employee> employees = null;
-        Employee employee = employeeService.findByEmpMobile(empRequest.getMobile());
+    public ResponseEntity<?> getEmployees(@RequestParam("empMobile") String empMobile) {
+        List<Object[]> employees = null;
+
+        List<Map> list =new ArrayList<>();
+        Employee employee = employeeService.findByEmpMobile(empMobile);
         try {
             if (employee.getEmpRole().equals(Role.Admin)) {
-                employees = employeeService.findAll();
+
+                employees = employeeService.findAllEmployee();
+                for(int i=0;i<employees.size();i++){
+                        Map map = new HashMap();
+                        map.put("empId",employees.get(i)[0]);
+                        map.put("empName",employees.get(i)[1]);
+                        map.put("empEmail",employees.get(i)[2]);
+                        map.put("empMobile",employees.get(i)[3]);
+                        map.put("shift",employees.get(i)[4]);
+                        map.put("empRole",employees.get(i)[5]);
+                        map.put("empAddress",employees.get(i)[6]);
+                        map.put("Designation",employees.get(i)[7]);
+                        map.put("createdBy",employees.get(i)[8]);
+                        map.put("createdDate",employees.get(i)[9]);
+                        map.put("officeAddress",employees.get(i)[10]);
+                        map.put("activeStatus",employees.get(i)[11]);
+                        map.put("managerId",employees.get(i)[12]);
+                        list.add(map);
+                }
+
+
                 if (employees.isEmpty()) {
-                    return ResponseEntity.ok(new CommanResponse("Empty Database", true, employees));
+                    return ResponseEntity.ok(new CommanResponse("Empty Database", true, list));
                 } else {
-                    return ResponseEntity.ok(new CommanResponse("Autorized Request", true, employees));
+                    return ResponseEntity.ok(new CommanResponse("Autorized Request", true, list));
                 }
             } else {
-                return ResponseEntity.ok(new CommanResponse("UnAutorized Request", false, employees));
+                return ResponseEntity.ok(new CommanResponse("UnAutorized Request", false, list ));
             }
         } catch (Exception ex) {
         	System.out.println(ex.getMessage());
-            return ResponseEntity.ok(new CommanResponse(ex.getMessage(), false, employees));
+            return ResponseEntity.ok(new CommanResponse(ex.getMessage(), false, list));
         }
     }
 
     @GetMapping("/getEmployee")
-    public ResponseEntity<?> getEmployee(@ModelAttribute EmpRequest empRequest) {
-        Employee employee = employeeService.findByEmpMobile(empRequest.getMobile());
+    public ResponseEntity<?> getEmployee(@RequestParam("empMobile") String empMobile) {
+        Employee employee = employeeService.findByEmpMobile(empMobile);
         try {
             if (employee.equals(null)) {
                 return ResponseEntity.ok(new CommanResponse("Record Not Found", false));

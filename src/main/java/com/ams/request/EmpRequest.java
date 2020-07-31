@@ -6,16 +6,15 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 public class EmpRequest {
     public String empMobile;
 
-
-    public EmpRequest(String mobile) {
-        this.empMobile = mobile;
+    public EmpRequest(String empMobile) {
+        this.empMobile = empMobile;
     }
 
     public String getMobile() {
         return empMobile;
     }
 
-    public void setMobile(String mobile) {
-        this.empMobile = mobile;
+    public void setMobile(String empMobile) {
+        this.empMobile = empMobile;
     }
 }

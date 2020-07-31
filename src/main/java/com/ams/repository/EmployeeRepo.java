@@ -2,6 +2,7 @@ package com.ams.repository;
 
 import com.ams.enums.Shift;
 import com.ams.modal.Employee;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -19,6 +20,9 @@ public interface EmployeeRepo extends JpaRepository<Employee, Long> {
     public Employee findByEmpMobile(String EmpMobile);
 
     public List<Employee> findAll();
+
+ @Query(value = "SELECT e.empId,e.empName,e.empEmail,e.empMobile,e.shift,e.empRole,e.OfficeAddress,e.Designation,e.CreatedBy,e.CreatedDate,e.empAddress,e.ActiveStatus,e.managerId FROM Employee e")
+ public  List<Object[]>  findAllEmployees(Sort sort);
 
     @Transactional
     @Modifying

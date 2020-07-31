@@ -27,4 +27,5 @@ public interface EmployeeService {
                                String OfficeAddress,  Shift shift,String empId);
         public List<Employee> findAll();
         public void addEmployee(Employee employee);
+        public  List<Object[]>  findAllEmployee();
 }

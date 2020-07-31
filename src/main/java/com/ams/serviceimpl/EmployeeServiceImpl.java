@@ -5,6 +5,7 @@ import com.ams.enums.Shift;
 import com.ams.modal.Employee;
 import com.ams.repository.EmployeeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.ams.service.EmployeeService;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -40,6 +41,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Employee> findAll() {
         List<Employee> employees = employeeRepo.findAll();
         return  employees;
+    }
+    Sort sort;
+
+    public  List<Object[]> findAllEmployee(){
+        List<Object[]> employee =employeeRepo.findAllEmployees(sort);
+        return  employee;
     }
 
     public Employee updateEmployee(String empName, String empMobile, String empEmail, String empAddress,
