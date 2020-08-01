@@ -1,5 +1,6 @@
 package com.ams.modal;
 
+import java.time.DayOfWeek;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -36,6 +37,9 @@ public class Attendance {
 
 	@Column(name = "DATE")
 	private String date;
+	
+	@Column(name="DAY")
+	private DayOfWeek day;
 
 	@Column(name = "IN_TIME")
 	private Date inTime;
@@ -255,6 +259,27 @@ public class Attendance {
 	 */
 	public void setCoorectionFlag(Boolean coorectionFlag) {
 		this.coorectionFlag = coorectionFlag;
+	}
+
+	/**
+	 * @return the day
+	 */
+	public DayOfWeek getDay() {
+		return day;
+	}
+
+	/**
+	 * @param day the day to set
+	 */
+	public void setDay(DayOfWeek day) {
+		this.day = day;
+	}
+
+	/**
+	 * @return the coorectionFlag
+	 */
+	public Boolean getCoorectionFlag() {
+		return coorectionFlag;
 	}
 
 	

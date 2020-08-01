@@ -22,8 +22,8 @@ import com.ams.modal.Attendance;
 @Transactional
 public interface AttendanceRepo extends JpaRepository<Attendance, Long> {
 
-	@Query("select a from Attendance a where a.empId=:empId")
-	public Attendance getAttendanceByEmpId(String empId);
+	@Query("select a from Attendance a where a.empId=:empId and date=:date")
+	public Attendance getAttendanceByEmpId(String empId,String date);
 	
 	@Query("select a from Attendance a where a.empId=:empId and date BETWEEN :firstDate AND :lastDate")
 	public List <Attendance> getAttendanceByMonth(String empId,String firstDate,String lastDate);

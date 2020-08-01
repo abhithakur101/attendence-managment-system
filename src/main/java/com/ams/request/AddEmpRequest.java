@@ -6,10 +6,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ams.enums.Role;
 import com.ams.enums.Shift;
 
+import javax.persistence.Column;
+
 @CrossOrigin("*")
 public class AddEmpRequest {
         private int id;
-    
           private String empId;
           private String empName;
           private String empPassword;
@@ -27,31 +28,48 @@ public class AddEmpRequest {
           private String ModifiedDate;
           private String ModifiedBy;
           private String ActiveStatus;
+          private String dob;
+          private String reportingOfficer;
+          private String attendenceOfficer;
+          private String HRManager;
+          private Long OfficeId;
+          private String Location;
+          private String SubLocation;
+
+
 
         public AddEmpRequest() {
         }
 
-        public AddEmpRequest(int id, String empId, String empName, String empPassword, String empEmail, String empMobile, String managerId, String empAddress, MultipartFile empPic, String designation, String officeAddress, Role empRole, Shift shift
-                , String createdDate, String createdBy, String modifiedDate, String modifiedBy, String activeStatus) {
-            this.empId = empId;
-            this.empName = empName;
-            this.empPassword = empPassword;
-            this.empEmail = empEmail;
-            this.empMobile = empMobile;
-            this.managerId = managerId;
-            this.empAddress = empAddress;
-            this.empPic = empPic;
-            Designation = designation;
-            OfficeAddress = officeAddress;
-            this.empRole = empRole;
-            this.shift = shift;
-            this.id = id;
-            CreatedDate = createdDate;
-            CreatedBy = createdBy;
-            ModifiedDate = modifiedDate;
-            ModifiedBy = modifiedBy;
-            ActiveStatus = activeStatus;
-        }
+    public AddEmpRequest(int id, String empId, String empName, String empPassword, String empEmail, String empMobile, String managerId, String empAddress, MultipartFile empPic, String designation, String officeAddress, Role empRole, Shift shift, String createdDate, String createdBy, String modifiedDate, String modifiedBy, String activeStatus, String dob, String reportingOfficer, String attendenceOfficer, String HRManager, Long officeId, String location, String subLocation) {
+        this.id = id;
+        this.empId = empId;
+        this.empName = empName;
+        this.empPassword = empPassword;
+        this.empEmail = empEmail;
+        this.empMobile = empMobile;
+        this.managerId = managerId;
+        this.empAddress = empAddress;
+        this.empPic = empPic;
+        Designation = designation;
+        OfficeAddress = officeAddress;
+        this.empRole = empRole;
+        this.shift = shift;
+        CreatedDate = createdDate;
+        CreatedBy = createdBy;
+        ModifiedDate = modifiedDate;
+        ModifiedBy = modifiedBy;
+        ActiveStatus = activeStatus;
+        this.dob = dob;
+        this.reportingOfficer = reportingOfficer;
+        this.attendenceOfficer = attendenceOfficer;
+        this.HRManager = HRManager;
+        OfficeId = officeId;
+        Location = location;
+        SubLocation = subLocation;
+    }
+
+
 
         @Override
         public String toString() {
@@ -215,6 +233,60 @@ public class AddEmpRequest {
             ActiveStatus = activeStatus;
         }
 
+        public String getDob() {
+            return dob;
+        }
 
+        public void setDob(String dob) {
+            this.dob = dob;
+        }
+
+        public String getReportingOfficer() {
+        return reportingOfficer;
+        }
+
+        public void setReportingOfficer(String reportingOfficer) {
+        this.reportingOfficer = reportingOfficer;
     }
+
+        public String getAttendenceOfficer() {
+        return attendenceOfficer;
+    }
+
+        public void setAttendenceOfficer(String attendenceOfficer) {
+        this.attendenceOfficer = attendenceOfficer;
+    }
+
+        public String getHRManager() {
+        return HRManager;
+    }
+
+        public void setHRManager(String HRManager) {
+        this.HRManager = HRManager;
+    }
+
+        public Long getOfficeId() {
+        return OfficeId;
+    }
+
+        public void setOfficeId(Long officeId) {
+        OfficeId = officeId;
+    }
+
+        public String getLocation() {
+        return Location;
+    }
+
+        public void setLocation(String location) {
+        Location = location;
+    }
+
+        public String getSubLocation() {
+        return SubLocation;
+    }
+
+        public void setSubLocation(String subLocation) {
+        SubLocation = subLocation;
+    }
+}
     

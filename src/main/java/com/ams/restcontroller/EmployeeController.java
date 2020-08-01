@@ -1,21 +1,31 @@
 package com.ams.restcontroller;
-import com.ams.enums.Role;
-import com.ams.modal.Employee;
-import com.ams.request.AddEmpRequest;
-import com.ams.request.EmpRequest;
-import com.ams.response.CommanResponse;
-import com.ams.serviceimpl.EmployeeServiceImpl;
-import com.ams.validation.Validation;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ams.enums.Role;
+import com.ams.modal.Employee;
+import com.ams.request.AddEmpRequest;
+import com.ams.response.CommanResponse;
+import com.ams.serviceimpl.EmployeeServiceImpl;
+import com.ams.validation.Validation;
 
 
 @CrossOrigin(origins = "*")
@@ -28,28 +38,61 @@ public class EmployeeController {
     Validation validation=new Validation();
 
     @GetMapping("/getEmployees")
-    public ResponseEntity<?> getEmployees(@ModelAttribute EmpRequest empRequest) {
-        List<Employee> employees = null;
-        Employee employee = employeeService.findByEmpMobile(empRequest.getMobile());
+    public ResponseEntity<?> getEmployees(@RequestParam("empMobile") String empMobile) {
+        List<Object[]> employees = null;
+
+        List<Map> list =new ArrayList<>();
+        Employee employee = employeeService.findByEmpMobile(empMobile);
         try {
             if (employee.getEmpRole().equals(Role.Admin)) {
-                employees = employeeService.findAll();
+
+                employees = employeeService.findAllEmployee();
+                for(int i=0;i<employees.size();i++){
+                        Map map = new HashMap();
+                        map.put("empId",employees.get(i)[0]);
+                        map.put("empName",employees.get(i)[1]);
+                        map.put("empEmail",employees.get(i)[2]);
+                        map.put("empMobile",employees.get(i)[3]);
+                        map.put("shift",employees.get(i)[4]);
+                        map.put("empRole",employees.get(i)[5]);
+                        map.put("empAddress",employees.get(i)[6]);
+                        map.put("Designation",employees.get(i)[7]);
+                        map.put("createdBy",employees.get(i)[8]);
+                        map.put("createdDate",employees.get(i)[9]);
+                        map.put("officeAddress",employees.get(i)[10]);
+                        map.put("activeStatus",employees.get(i)[11]);
+                        map.put("managerId",employees.get(i)[12]);
+                        map.put("dob",employees.get(i)[13]);
+                        map.put("reportingOfficer",employees.get(i)[14]);
+                        map.put("attendenceOfficer",employees.get(i)[15]);
+                        map.put("HRManager",employees.get(i)[16]);
+                        map.put("OfficeId",employees.get(i)[17]);
+                        map.put("Location",employees.get(i)[18]);
+                        map.put("SubLocation",employees.get(i)[19]);
+                        list.add(map);
+                }
+
+
                 if (employees.isEmpty()) {
-                    return ResponseEntity.ok(new CommanResponse("Empty Database", true, employees));
+                    return ResponseEntity.ok(new CommanResponse("Empty Database", true, list));
                 } else {
-                    return ResponseEntity.ok(new CommanResponse("Autorized Request", true, employees));
+                    return ResponseEntity.ok(new CommanResponse("Autorized Request", true, list));
                 }
             } else {
-                return ResponseEntity.ok(new CommanResponse("UnAutorized Request", false, employees));
+                return ResponseEntity.ok(new CommanResponse("UnAutorized Request", false, list ));
             }
         } catch (Exception ex) {
-            return ResponseEntity.ok(new CommanResponse(ex.getMessage(), false, employees));
+
+        	System.out.println(ex.getMessage());
+            return ResponseEntity.ok(new CommanResponse(ex.getMessage(), false, list));
+
+
         }
     }
 
     @GetMapping("/getEmployee")
-    public ResponseEntity<?> getEmployee(@ModelAttribute EmpRequest empRequest) {
-        Employee employee = employeeService.findByEmpMobile(empRequest.getMobile());
+    public ResponseEntity<?> getEmployee(@RequestParam("empMobile") String empMobile) {
+        Employee employee = employeeService.findByEmpMobile(empMobile);
         try {
             if (employee.equals(null)) {
                 return ResponseEntity.ok(new CommanResponse("Record Not Found", false));
@@ -118,6 +161,12 @@ public class EmployeeController {
          employee.setEmpRole(addEmpRequest.getEmpRole());
          employee.setShift(addEmpRequest.getShift());
          employee.setModifiedDate(addEmpRequest.getModifiedDate());
+         employee.setDob(addEmpRequest.getDob());
+         employee.setAttendenceOfficer(addEmpRequest.getAttendenceOfficer());
+         employee.setHRManager(addEmpRequest.getHRManager());
+         employee.setLocation(addEmpRequest.getLocation());
+         employee.setSubLocation(addEmpRequest.getSubLocation());
+         employee.setOfficeId(addEmpRequest.getOfficeId());
         try{
             Boolean Existingemployee = employeeService.checkfindByEmpMobile(addEmpRequest.getEmpMobile());
 
@@ -197,6 +246,23 @@ public class EmployeeController {
                     employeeService.updateShift(employee.getShift(),employee.getEmpId());
                     employeeService.updateModifiedBy(getemployee.getEmpName(),employee.getEmpId());
                     employeeService.updateModifiedDate(new Date().toString(),employee.getEmpId());
+
+                    employeeService.updateDob(getemployee.getDob(),employee.getEmpId());
+                    employeeService.updateLocation(getemployee.getLocation(),employee.getEmpId());
+                    employeeService.updateOfficeId(getemployee.getOfficeId(),employee.getEmpId());
+                    employeeService.updateAttendenceOfficer(getemployee.getAttendenceOfficer(),employee.getEmpId());
+                    employeeService.updateHRManager(getemployee.getHRManager(),employee.getEmpId());
+                    employeeService.updateReportingOfficer(getemployee.getReportingOfficer(),employee.getEmpId());
+                    employeeService.updateSubLocation(getemployee.getSubLocation(),employee.getEmpId());
+
+
+
+
+
+
+
+
+
 
                     return ResponseEntity.ok(new CommanResponse("User Data", true, employee));
                 } else {

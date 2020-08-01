@@ -32,6 +32,7 @@ public class AttendenceController {
 	public ResponseEntity<AttendaneceResponse> submitAttendance(@ModelAttribute AttendanceRequset request) {
 		AttendaneceResponse response = new AttendaneceResponse();
 		try {
+			
 			if (!request.checkNull()) {
 				MultipartFile file = request.getMultipartFile();
 				CommonUtil.uploadImage(file, request.getEmpId());
@@ -54,22 +55,35 @@ public class AttendenceController {
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
+	
+	@PostMapping("/updatecorrection")
+	public ResponseEntity<AttendaneceResponse> updateAttendence(@RequestParam String mgrId) {
+		AttendaneceResponse response = new AttendaneceResponse();
+		try {
+			if (null != mgrId) {
+				List<Attendance> updateAttendance = service.updateAttendance(mgrId, response);
+				if(null != updateAttendance) {
+				response.setMessage("Successfully Updated Timesheet");
+				response.setStatus(HttpStatus.OK.value());
+				return ResponseEntity.status(HttpStatus.OK).body(response);
+				}else {
+					response.setMessage("NO ONE APPLIED FOR CORRECTION");
+					response.setStatus(HttpStatus.OK.value());
+					response.setAttendanceList(updateAttendance);
+					return ResponseEntity.status(HttpStatus.OK).body(response);
+				}
+			} else {
+				throw new Exception();
+			}
 
-	/*
-	 * @PostMapping("/updatetimesheet") public ResponseEntity<AttendaneceResponse>
-	 * updateAttendence(@RequestParam String empId) { AttendaneceResponse response =
-	 * new AttendaneceResponse(); try { if (null != empId) {
-	 * service.updateAttendance(empId, response); response.setMessage(message);
-	 * response.setStatus(HttpStatus.OK.value()); return
-	 * ResponseEntity.status(HttpStatus.OK).body(response); } else { throw new
-	 * Exception(); }
-	 * 
-	 * } catch (Exception e) { response.setStatus(HttpStatus.BAD_REQUEST.value());
-	 * response.setMessage(HttpStatus.BAD_REQUEST.toString()); return
-	 * ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); }
-	 * 
-	 * }
-	 */
+		} catch (Exception e) {
+			response.setStatus(HttpStatus.BAD_REQUEST.value());
+			response.setMessage(HttpStatus.BAD_REQUEST.toString());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+		}
+
+	}
+	 
 
 	@PostMapping("/correction")
 	public ResponseEntity<AttendaneceResponse> applyForCorrection(@RequestParam Long id) {

@@ -1,5 +1,6 @@
 package com.ams.modal;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -27,7 +28,7 @@ public class AttandanceLog {
 	private AttendanceStatus status;
 
 	@Column(name = "DATE")
-	private LocalDate date;
+	private String date;
 
 	@Column(name = "IN_TIME")
 	private Date inTime;
@@ -35,6 +36,9 @@ public class AttandanceLog {
 	@Column(name = "OUT_TIME")
 	private Date outTime;
 
+	@Column(name="DAY")
+	private DayOfWeek day;
+	
 	@Column(name = "LATITUDE")
 	private Double latitude;
 
@@ -113,14 +117,14 @@ public class AttandanceLog {
 	/**
 	 * @return the date
 	 */
-	public LocalDate getDate() {
+	public String getDate() {
 		return date;
 	}
 
 	/**
 	 * @param date the date to set
 	 */
-	public void setDate(LocalDate date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
@@ -248,6 +252,20 @@ public class AttandanceLog {
 	 */
 	public void setCoorectionFlag(boolean coorectionFlag) {
 		this.coorectionFlag = coorectionFlag;
+	}
+
+	/**
+	 * @return the day
+	 */
+	public DayOfWeek getDay() {
+		return day;
+	}
+
+	/**
+	 * @param day the day to set
+	 */
+	public void setDay(DayOfWeek day) {
+		this.day = day;
 	}
 
 

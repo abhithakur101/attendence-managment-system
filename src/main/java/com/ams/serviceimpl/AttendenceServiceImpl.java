@@ -58,7 +58,7 @@ public class AttendenceServiceImpl implements AttendenceService {
 			String empMobile = attendanceRequset.getEmpMobile();
 			Employee employee = empRepo.findByEmpMobile(empMobile);
 			ShiftTime shiftTime = CommonUtil.getShiftTime(employee.getShift());
-			Attendance attendance = repo.getAttendanceByEmpId(employee.getEmpId());
+			Attendance attendance = repo.getAttendanceByEmpId(employee.getEmpId(), LocalDate.now().toString());
 			Double latitude = attendanceRequset.getLatitude();
 			Double longitude = attendanceRequset.getLongitude();
 			// Out Time logic
@@ -93,11 +93,8 @@ public class AttendenceServiceImpl implements AttendenceService {
 					attendance = new Attendance();
 					attendance.setManagerId(employee.getManagerId());
 					attendance.setDate(LocalDate.now().toString());
-					if (null != attendanceRequset.getInTime()) {
-						// TODO pendig parsing date
-					} else {
-						attendance.setInTime(new java.util.Date());
-					}
+					attendance.setDay(LocalDate.now().getDayOfWeek());
+					attendance.setInTime(new java.util.Date());
 					attendance.setStatus(AttendanceStatus.ABSENT);
 					attendance.setCoorectionFlag(false);
 					attendance.setLocationStatus(locStatus);
@@ -132,21 +129,15 @@ public class AttendenceServiceImpl implements AttendenceService {
 	 * @throws ParseException
 	 */
 	private void logAttendance(AttendanceRequset requset, Employee employee, Boolean locStatus) throws ParseException {
-		AttandanceLog attandanceLog = logRepo.getAttendanceByEmpId(employee.getEmpId());
+		AttandanceLog attandanceLog = logRepo.getAttendanceByEmpId(employee.getEmpId(), LocalDate.now().toString());
 		ShiftTime shiftTime = CommonUtil.getShiftTime(employee.getShift());
 		if (null != attandanceLog) {
 			// OUT TIME LOGIC
 			attandanceLog.setManagerId(employee.getManagerId());
-			attandanceLog.setDate(LocalDate.now());
-			if (null != requset.getInTime()) {
-				// TODO pending date parsing
-			} else {
-				attandanceLog.setInTime(new java.util.Date());
-			}
-
+			attandanceLog.setDate(LocalDate.now().toString());
+			attandanceLog.setInTime(new java.util.Date());
 			int inTime = CommonUtil.compareTimes(shiftTime.getMinOut(), attandanceLog.getInTime());
 			int outime = CommonUtil.compareTimes(shiftTime.getMinOut(), attandanceLog.getOutTime());
-
 			if (inTime >= 0 && outime <= 0) {
 				attandanceLog.setStatus(AttendanceStatus.PRESENT);
 			}
@@ -161,16 +152,12 @@ public class AttendenceServiceImpl implements AttendenceService {
 			// Intime logic
 			attandanceLog = new AttandanceLog();
 			attandanceLog.setManagerId(employee.getManagerId());
-			attandanceLog.setDate(LocalDate.now());
+			attandanceLog.setDate(LocalDate.now().toString());
+			attandanceLog.setDay(LocalDate.now().getDayOfWeek());
 			if (null != requset.getInTime()) {
 				// TODO pending date parsing
 			} else {
 				attandanceLog.setInTime(new java.util.Date());
-			}
-			if (null != requset.getOutTime()) {
-				// TODO pending date parsing
-			} else {
-				attandanceLog.setOutTime(new java.util.Date());
 			}
 			attandanceLog.setLocationStatus(locStatus);
 			attandanceLog.setStatus(AttendanceStatus.ABSENT);
@@ -189,8 +176,8 @@ public class AttendenceServiceImpl implements AttendenceService {
 	 * 
 	 * @param request
 	 */
-	public List<Attendance>applyForCorrection(Long id) {
-		List<Attendance> attendanceList =  new ArrayList<Attendance>();
+	public List<Attendance> applyForCorrection(Long id) {
+		List<Attendance> attendanceList = new ArrayList<Attendance>();
 		Optional<Attendance> findById = repo.findById(id);
 		// attendance flow
 		if (findById.isPresent()) {
@@ -207,7 +194,6 @@ public class AttendenceServiceImpl implements AttendenceService {
 			att.setCoorectionFlag(true);
 			logRepo.save(att);
 		}
-
 		return attendanceList;
 	}
 
@@ -225,22 +211,29 @@ public class AttendenceServiceImpl implements AttendenceService {
 		LocalDate lastDate = yearMonth.atEndOfMonth();
 		List<Attendance> attendanceByMonth = repo.getAttendanceByMonth(empId, firstDate.toString(),
 				lastDate.toString());
+		
 		return attendanceByMonth;
 	}
+
 	/**
 	 * method for update employee attendance
 	 * 
 	 * @param empId
 	 * @param response
 	 * @return
-	 *//*
-		 * public List<Attendance>updateAttendance(@RequestParam String empId,AttendaneceResponse
-		 * response) { List<Attendance> attendanceList =
-		 * repo.getAttendanceByCorrectionFlag(empId, true); for(Attendance
-		 * attendance:attendanceList) { attendance.setCoorectionFlag(false);
-		 * attendance.setStatus(AttendanceStatus.PRESENT); Attendance att =
-		 * repo.save(attendance); attList.add(att); response.setAttendanceList(attList);
-		 * } return "SUCCESSFULLY UPDATED"; }
-		 */
+	 */
+	public List<Attendance> updateAttendance(@RequestParam String mgrId, AttendaneceResponse response) {
+		List<Attendance> attendanceList = repo.getAttendanceByCorrectionFlag(mgrId, true);
+		List<Attendance> attList = new ArrayList<Attendance>();
+		
+		for (Attendance attendance : attendanceList) {
+			attendance.setCoorectionFlag(false);
+			attendance.setStatus(AttendanceStatus.PRESENT);
+			Attendance att = repo.save(attendance);
+			attList.add(att);
+			response.setAttendanceList(attList);
+		}
+		return attList;
+	}
 
 }

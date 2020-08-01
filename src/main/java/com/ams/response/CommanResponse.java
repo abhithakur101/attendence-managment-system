@@ -3,22 +3,31 @@ package com.ams.response;
 import com.ams.modal.Employee;
 
 import java.util.List;
+import java.util.Map;
 
 public class CommanResponse {
-    public String MESSAGE;
-    public Boolean Status;
+    public String message;
+    public Boolean status;
     public List<Employee> employees;
     public Employee employee;
+    public List<Map> allemployees;
 
-    public CommanResponse(String MESSAGE, Boolean status) {
-        this.MESSAGE = MESSAGE;
-        Status = status;
+
+    public CommanResponse(String message, Boolean status) {
+        this.message = message;
+        status = status;
     }
 
-    public CommanResponse(String MESSAGE, Boolean status, Employee employee) {
-        this.MESSAGE = MESSAGE;
-        Status = status;
+
+    public CommanResponse(String message, Boolean status, Employee employee) {
+        this.message = message;
+        status = status;
         this.employee = employee;
+    }
+    public CommanResponse(String message, Boolean status, List<Map> allemployees) {
+        this.message = message;
+        status = status;
+        this.allemployees = allemployees;
     }
 
     public Employee getEmployee() {
@@ -29,26 +38,26 @@ public class CommanResponse {
         this.employee = employee;
     }
 
-    public CommanResponse(String MESSAGE, Boolean status, List<Employee> employees) {
-        this.MESSAGE = MESSAGE;
-        Status = status;
-        this.employees = employees;
+//    public CommanResponse(String message, Boolean status, List<Employee> employees) {
+//        this.message = message;
+//        status = status;
+//        this.employees = employees;
+//    }
+
+    public String getmessage() {
+        return message;
     }
 
-    public String getMESSAGE() {
-        return MESSAGE;
+    public void setmessage(String message) {
+        this.message = message;
     }
 
-    public void setMESSAGE(String MESSAGE) {
-        this.MESSAGE = MESSAGE;
+    public Boolean getstatus() {
+        return status;
     }
 
-    public Boolean getStatus() {
-        return Status;
-    }
-
-    public void setStatus(Boolean status) {
-        Status = status;
+    public void setstatus(Boolean status) {
+        status = status;
     }
 
     public List<Employee> getEmployees() {

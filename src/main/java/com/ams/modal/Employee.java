@@ -1,5 +1,4 @@
 package com.ams.modal;
-
 import com.ams.enums.Role;
 import com.ams.enums.Shift;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,7 +27,7 @@ public class Employee {
     private String managerId;
     @Column(name = "EMP_ADDRESS")
     private String empAddress;
-    @Column(name = "EMP_PIC", length = 2147483647)
+   @Column(name = "EMP_PIC", length = 2147483647)
     private byte[] empPic;
     @Column(name = "EMP_DESIGNATION")
     private String Designation;
@@ -49,11 +48,35 @@ public class Employee {
     @Column(name = "ACTIVE_STATUS")
     private String ActiveStatus;
 
+    @Column(name="DOB")
+    private String dob;
+
+    @Column(name="Reporting_officer")
+    private String reportingOfficer;
+
+    @Column(name="attendence_Officer")
+    private String attendenceOfficer;
+
+    @Column(name="HR_Manager")
+    private String HRManager;
+
+
+    @Column(name="Office_Id")
+    private Long officeId;
+
+    @Column(name="Location")
+    private String Location;
+
+    @Column(name="Sub_Location")
+    private String SubLocation;
+
+
     public Employee() {
     }
 
+
     public Employee(int id, String empId, String empName, String empPassword, String empEmail, String empMobile, String managerId, String empAddress, byte[] empPic, String designation, String officeAddress, Role empRole, Shift shift
-            , String createdDate, String createdBy, String modifiedDate, String modifiedBy, String activeStatus) {
+            , String createdDate, String createdBy, String modifiedDate, String modifiedBy, String activeStatus,String dob, String reportingOfficer, String attendenceOfficer, String HRManager, Long officeId, String location, String subLocation) {
         this.empId = empId;
         this.empName = empName;
         this.empPassword = empPassword;
@@ -72,6 +95,13 @@ public class Employee {
         ModifiedDate = modifiedDate;
         ModifiedBy = modifiedBy;
         ActiveStatus = activeStatus;
+        this.dob = dob;
+        this.reportingOfficer = reportingOfficer;
+        this.attendenceOfficer = attendenceOfficer;
+        this.HRManager = HRManager;
+        officeId = officeId;
+        Location = location;
+        SubLocation = subLocation;
     }
 
     @Override
@@ -236,5 +266,59 @@ public class Employee {
         ActiveStatus = activeStatus;
     }
 
+    public String getDob() {
+        return dob;
+    }
 
+    public void setDob(String dob) {
+        this.dob = dob;
+    }
+
+    public String getReportingOfficer() {
+        return reportingOfficer;
+    }
+
+    public void setReportingOfficer(String reportingOfficer) {
+        this.reportingOfficer = reportingOfficer;
+    }
+
+    public String getAttendenceOfficer() {
+        return attendenceOfficer;
+    }
+
+    public void setAttendenceOfficer(String attendenceOfficer) {
+        this.attendenceOfficer = attendenceOfficer;
+    }
+
+    public String getHRManager() {
+        return HRManager;
+    }
+
+    public void setHRManager(String HRManager) {
+        this.HRManager = HRManager;
+    }
+
+    public Long getOfficeId() {
+        return officeId;
+    }
+
+    public void setOfficeId(Long officeId) {
+        officeId = officeId;
+    }
+
+    public String getLocation() {
+        return Location;
+    }
+
+    public void setLocation(String location) {
+        Location = location;
+    }
+
+    public String getSubLocation() {
+        return SubLocation;
+    }
+
+    public void setSubLocation(String subLocation) {
+        SubLocation = subLocation;
+    }
 }
