@@ -112,7 +112,7 @@ public class AttendenceController {
 		}
 	}
 
-	@GetMapping("/getattendance")
+	@GetMapping("/	")
 	public ResponseEntity<AttendaneceResponse> getEmployeeAttendence(@RequestParam String empId,
 			@RequestParam String month) {
 		AttendaneceResponse response = new AttendaneceResponse();

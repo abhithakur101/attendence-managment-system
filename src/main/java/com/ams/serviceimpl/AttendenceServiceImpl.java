@@ -66,6 +66,7 @@ public class AttendenceServiceImpl implements AttendenceService {
 				Boolean locStatus = CommonUtil.checklocation(latitude, longitude);
 				attendance.setUpdateDate(calendar.getTime());
 				attendance.setOutTime(new java.util.Date());
+				System.out.println(attendance.getOutTime());
 				int inTime = CommonUtil.compareTimes(shiftTime.getMinOut(), attendance.getInTime());
 				int outime = CommonUtil.compareTimes(shiftTime.getMinOut(), attendance.getOutTime());
 
@@ -95,6 +96,7 @@ public class AttendenceServiceImpl implements AttendenceService {
 					attendance.setDate(LocalDate.now().toString());
 					attendance.setDay(LocalDate.now().getDayOfWeek());
 					attendance.setInTime(new java.util.Date());
+					System.out.println(attendance.getInTime());
 					attendance.setStatus(AttendanceStatus.ABSENT);
 					attendance.setCoorectionFlag(false);
 					attendance.setLocationStatus(locStatus);
