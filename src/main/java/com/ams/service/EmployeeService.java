@@ -21,7 +21,14 @@ public interface EmployeeService {
         public void updateOfficeAddress(String OfficeAddress,String empId);
         public void updateShift(Shift shift,String empId);
         public void updateModifiedDate(String modifiedDate,String empId);
-        public void updateModifiedBy(String modifiedBy,String empId);
+        public void updateDob(String dob,String empId);
+        public void updateLocation(String Location,String empId);
+        public void updateOfficeId(Long officeId,String empId);
+        public void updateReportingOfficer(String reportingOfficer,String empId);
+        public void updateHRManager(String HRManager,String empId);
+        public void updateAttendenceOfficer(String attendenceOfficer,String empId);
+        public void updateSubLocation(String SubLocation,String empId);
+
         public Employee updateEmployee(String empName,  String empMobile,  String empEmail, String empAddress,
                               byte[] empPic,  String Designation, String empPassword,
                                String OfficeAddress,  Shift shift,String empId);

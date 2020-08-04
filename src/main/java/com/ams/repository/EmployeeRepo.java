@@ -21,8 +21,11 @@ public interface EmployeeRepo extends JpaRepository<Employee, Long> {
 
     public List<Employee> findAll();
 
- @Query(value = "SELECT e.empId,e.empName,e.empEmail,e.empMobile,e.shift,e.empRole,e.OfficeAddress,e.Designation,e.CreatedBy,e.CreatedDate,e.empAddress,e.ActiveStatus,e.managerId FROM Employee e")
- public  List<Object[]>  findAllEmployees(Sort sort);
+ @Query(value = "SELECT e.empId,e.empName,e.empEmail,e.empMobile,e.shift,e.empRole," +
+         "e.OfficeAddress,e.Designation,e.CreatedBy,e.CreatedDate,e.empAddress,e.ActiveStatus," +
+         "e.managerId,e.dob,e.attendenceOfficer,e.HRManager,e.reportingOfficer,e.officeId,e.Location," +
+         "e.SubLocation FROM Employee e")
+ public  List<Object[]>  findAllEmployees();
 
     @Transactional
     @Modifying
@@ -85,6 +88,44 @@ public interface EmployeeRepo extends JpaRepository<Employee, Long> {
     @Modifying
     @Query(value = "update Employee e set e.ModifiedBy=:ModifiedBy  where e.empId =:empId")
     public void updateModifiedBy(@Param("ModifiedBy") String ModifiedBy, @Param("empId") String empId);
+
+    @Transactional
+    @Modifying
+    @Query(value = "update Employee e set e.dob=:dob  where e.empId =:empId")
+    public void updateDob(@Param("dob") String dob, @Param("empId") String empId);
+
+    @Transactional
+    @Modifying
+    @Query(value = "update Employee e set e.Location=:Location  where e.empId =:empId")
+    public void updateLocation(@Param("Location") String Location, @Param("empId") String empId);
+
+    @Transactional
+    @Modifying
+    @Query(value = "update Employee e set e.officeId=:officeId  where e.empId =:empId")
+    public void updateOfficeId(@Param("officeId") Long officeId, @Param("empId") String empId);
+
+    @Transactional
+    @Modifying
+    @Query(value = "update Employee e set e.reportingOfficer=:reportingOfficer  where e.empId =:empId")
+    public void updateReportingOfficer(@Param("reportingOfficer") String reportingOfficer, @Param("empId") String empId);
+
+    @Transactional
+    @Modifying
+    @Query(value = "update Employee e set e.HRManager=:HRManager  where e.empId =:empId")
+    public void updateHRManager(@Param("HRManager") String HRManager, @Param("empId") String empId);
+
+    @Transactional
+    @Modifying
+    @Query(value = "update Employee e set e.attendenceOfficer=:attendenceOfficer  where e.empId =:empId")
+    public void updateAttendenceOfficer(@Param("attendenceOfficer") String attendenceOfficer, @Param("empId") String empId);
+
+    @Transactional
+    @Modifying
+    @Query(value = "update Employee e set e.SubLocation=:SubLocation  where e.empId =:empId")
+    public void updateSubLocation(@Param("SubLocation") String SubLocation, @Param("empId") String empId);
+
+
+
 
 
 

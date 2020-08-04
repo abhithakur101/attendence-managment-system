@@ -10,6 +10,5 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @Repository
 public interface UserRepository extends JpaRepository<Employee,Long>  {
     public Employee findByEmpMobile(String EmpMobile);
-
 }
 

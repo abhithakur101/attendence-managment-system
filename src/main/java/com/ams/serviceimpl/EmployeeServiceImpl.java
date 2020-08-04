@@ -1,6 +1,4 @@
-
 package com.ams.serviceimpl;
-
 import com.ams.enums.Shift;
 import com.ams.modal.Employee;
 import com.ams.repository.EmployeeRepo;
@@ -9,7 +7,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.ams.service.EmployeeService;
 import org.springframework.web.bind.annotation.CrossOrigin;
-
 import java.util.List;
 
 @CrossOrigin("*")
@@ -45,7 +42,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     Sort sort;
 
     public  List<Object[]> findAllEmployee(){
-        List<Object[]> employee =employeeRepo.findAllEmployees(sort);
+        List<Object[]> employee =employeeRepo.findAllEmployees();
         return  employee;
     }
 
@@ -71,24 +68,40 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void updateAddress(String empAddress,String empId){
         employeeRepo.updateAddress(empAddress, empId);
     }
-    public void updateEmpDesignation(String Designation,String empId){
-        employeeRepo.updateEmpDesignation(Designation, empId);
-    }
-    public void updateEmpPassword(String empPassword,String empId){
-        employeeRepo.updateEmpPassword(empPassword, empId);
-    }
-    public void updateOfficeAddress(String OfficeAddress,String empId){
-        employeeRepo.updateOfficeAddress(OfficeAddress, empId);
-    }
+    public void updateEmpDesignation(String Designation,String empId){ employeeRepo.updateEmpDesignation(Designation, empId); }
+    public void updateEmpPassword(String empPassword,String empId){ employeeRepo.updateEmpPassword(empPassword, empId); }
+    public void updateOfficeAddress(String OfficeAddress,String empId){ employeeRepo.updateOfficeAddress(OfficeAddress, empId); }
     public void updateShift(Shift shift,String empId){
         employeeRepo.updateShift(shift, empId);
     }
     public void updateModifiedDate(String Date,String empId){
             employeeRepo.updateModifiedDate(Date, empId);
 }
+    public void updateDob(String dob,String empId){
+        employeeRepo.updateDob(dob, empId);
+    }
+    public void updateLocation(String Location,String empId){
+        employeeRepo.updateLocation(Location, empId);
+    }
+    public void updateOfficeId(Long officeId,String empId){
+        employeeRepo.updateOfficeId(officeId, empId);
+    }
+    public void updateReportingOfficer(String reportingOfficer,String empId){
+        employeeRepo.updateReportingOfficer(reportingOfficer, empId);
+    }
+    public void updateHRManager(String HRManager,String empId){
+        employeeRepo.updateModifiedBy(HRManager, empId);
+    }
+    public void updateAttendenceOfficer(String attendenceOfficer,String empId){
+        employeeRepo.updateAttendenceOfficer(attendenceOfficer, empId);
+    }
+    public void updateSubLocation(String SubLocation,String empId){
+        employeeRepo.updateSubLocation(SubLocation, empId);
+    }
     public void updateModifiedBy(String ModifiedBy,String empId){
         employeeRepo.updateModifiedBy(ModifiedBy, empId);
     }
+
     public void addEmployee(Employee employee){
         employeeRepo.save(employee);
     }

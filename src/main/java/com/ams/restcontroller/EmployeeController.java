@@ -51,6 +51,13 @@ public class EmployeeController {
                         map.put("officeAddress",employees.get(i)[10]);
                         map.put("activeStatus",employees.get(i)[11]);
                         map.put("managerId",employees.get(i)[12]);
+                        map.put("dob",employees.get(i)[13]);
+                        map.put("reportingOfficer",employees.get(i)[14]);
+                        map.put("attendenceOfficer",employees.get(i)[15]);
+                        map.put("HRManager",employees.get(i)[16]);
+                        map.put("OfficeId",employees.get(i)[17]);
+                        map.put("Location",employees.get(i)[18]);
+                        map.put("SubLocation",employees.get(i)[19]);
                         list.add(map);
                 }
 
@@ -64,8 +71,11 @@ public class EmployeeController {
                 return ResponseEntity.ok(new CommanResponse("UnAutorized Request", false, list ));
             }
         } catch (Exception ex) {
+
         	System.out.println(ex.getMessage());
             return ResponseEntity.ok(new CommanResponse(ex.getMessage(), false, list));
+
+
         }
     }
 
@@ -97,7 +107,6 @@ public class EmployeeController {
             outputStream.close();
         } catch (IOException e) {
         }
-        System.out.println("Compressed Image Byte Size - " + outputStream.toByteArray().length);
         return outputStream.toByteArray();
     }
     // uncompress the image bytes before returning it to the angular application
@@ -141,6 +150,12 @@ public class EmployeeController {
          employee.setEmpRole(addEmpRequest.getEmpRole());
          employee.setShift(addEmpRequest.getShift());
          employee.setModifiedDate(addEmpRequest.getModifiedDate());
+         employee.setDob(addEmpRequest.getDob());
+         employee.setAttendenceOfficer(addEmpRequest.getAttendenceOfficer());
+         employee.setHRManager(addEmpRequest.getHRManager());
+         employee.setLocation(addEmpRequest.getLocation());
+         employee.setSubLocation(addEmpRequest.getSubLocation());
+         employee.setOfficeId(addEmpRequest.getOfficeId());
         try{
             Boolean Existingemployee = employeeService.checkfindByEmpMobile(addEmpRequest.getEmpMobile());
 
@@ -220,6 +235,23 @@ public class EmployeeController {
                     employeeService.updateShift(employee.getShift(),employee.getEmpId());
                     employeeService.updateModifiedBy(getemployee.getEmpName(),employee.getEmpId());
                     employeeService.updateModifiedDate(new Date().toString(),employee.getEmpId());
+
+                    employeeService.updateDob(getemployee.getDob(),employee.getEmpId());
+                    employeeService.updateLocation(getemployee.getLocation(),employee.getEmpId());
+                    employeeService.updateOfficeId(getemployee.getOfficeId(),employee.getEmpId());
+                    employeeService.updateAttendenceOfficer(getemployee.getAttendenceOfficer(),employee.getEmpId());
+                    employeeService.updateHRManager(getemployee.getHRManager(),employee.getEmpId());
+                    employeeService.updateReportingOfficer(getemployee.getReportingOfficer(),employee.getEmpId());
+                    employeeService.updateSubLocation(getemployee.getSubLocation(),employee.getEmpId());
+
+
+
+
+
+
+
+
+
 
                     return ResponseEntity.ok(new CommanResponse("User Data", true, employee));
                 } else {

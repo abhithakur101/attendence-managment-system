@@ -6,9 +6,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.ZoneId;
 import java.util.Date;
 
 import org.gavaghan.geodesy.Ellipsoid;
@@ -27,18 +24,29 @@ public class CommonUtil {
 		GeodeticCalculator geoCalc = new GeodeticCalculator();
 		Ellipsoid reference = Ellipsoid.WGS84;
 		// cedmap pos
-		GlobalPosition pointA = new GlobalPosition(23.237920, 77.425470, 0.0);
+		GlobalPosition pointA = new GlobalPosition(23.2429477, 77.4243496, 0.0);
 		// Mpeb location
 		GlobalPosition pointB = new GlobalPosition(23.253870, 77.441272, 0.0);
 
 		GlobalPosition userPos = new GlobalPosition(latitude, longitude, 0.0);
 		double distance = geoCalc.calculateGeodeticCurve(reference, userPos, pointA).getEllipsoidalDistance();
+
 		System.out.println(distance);
 	   if(distance<= 500){
 		return true;
 	   }else{
 		return false;
 	}
+
+
+//		int flag = Double.compare(distance, 500);
+//		if (flag < 0) {
+//			return true;
+//		} else if (flag > 0) {
+//			return false;
+//		} else {
+//			return true;
+//		}
 
 	}
 

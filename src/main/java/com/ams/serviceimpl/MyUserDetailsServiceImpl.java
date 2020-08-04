@@ -26,7 +26,6 @@ public class MyUserDetailsServiceImpl implements MyUserDetailsService {
 	        Employee employee = userRepository.findByEmpMobile(s);
 	        String mobile = employee.getEmpMobile();
 	        String password = employee.getEmpPassword();
-	        System.out.println("username " + mobile + "password  " + password);
 	        return new User(mobile, password, new ArrayList<>());
 	    }
 
